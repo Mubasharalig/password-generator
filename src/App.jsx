@@ -6,16 +6,21 @@ function App() {
   const [number, setNumber] = useState(false)
   const [symbol, setSymbol] = useState(false)
   const [uppercase, setUppercase] = useState(false)
-  const passwordRef = useRef()
   const passwordGenerator = () => {
     let string = 'abcdefghijklmnopqrstuvwxyz'
     let savePassword = ""
+    let preChar=""
     if(uppercase) string+="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     if (number) string += "123456789"
     if (symbol) string += "!@#/$%>(*?_"
     for (let i = 1; i <= rangeValue; i++) {
-      const random = Math.floor(Math.random() * string.length)
-      savePassword += string.charAt(random)
+      let index
+      do{
+
+        index = Math.floor(Math.random() * string.length)
+      }while(preChar.includes(string[index]))
+      preChar+=string.charAt(index)
+      savePassword += string.charAt(index)
     }
     setPassword(savePassword)
   }
